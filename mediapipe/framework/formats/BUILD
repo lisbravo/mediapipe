@@ -27,48 +27,41 @@ exports_files(["LICENSE"])
 mediapipe_proto_library(
     name = "detection_proto",
     srcs = ["detection.proto"],
-    visibility = ["//visibility:public"],
-    deps = ["//mediapipe/framework/formats:location_data_proto"],
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = ["//mediapipe/framework/formats:location_data_proto"],
 )
 
 mediapipe_proto_library(
     name = "classification_proto",
     srcs = ["classification.proto"],
-    visibility = ["//visibility:public"],
-)
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],)
 
 mediapipe_proto_library(
     name = "image_format_proto",
     srcs = ["image_format.proto"],
-    visibility = ["//visibility:public"],
-)
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],)
 
 mediapipe_proto_library(
     name = "matrix_data_proto",
     srcs = ["matrix_data.proto"],
-    visibility = ["//visibility:public"],
-)
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],)
 
 mediapipe_proto_library(
     name = "location_data_proto",
     srcs = ["location_data.proto"],
     portable_deps = ["//mediapipe/framework/formats/annotation:rasterization_cc_proto"],
-    visibility = ["//visibility:public"],
-    deps = ["//mediapipe/framework/formats/annotation:rasterization_proto"],
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = ["//mediapipe/framework/formats/annotation:rasterization_proto"],
 )
 
 mediapipe_proto_library(
     name = "time_series_header_proto",
     srcs = ["time_series_header.proto"],
-    visibility = ["//visibility:public"],
-)
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],)
 
 cc_library(
     name = "deleting_file",
     srcs = ["deleting_file.cc"],
     hdrs = ["deleting_file.h"],
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         "//mediapipe/framework/port:logging",
     ],
 )
@@ -77,8 +70,7 @@ cc_library(
     name = "matrix",
     srcs = ["matrix.cc"],
     hdrs = ["matrix.h"],
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         "//mediapipe/framework:port",
         "//mediapipe/framework/formats:matrix_data_cc_proto",
         "//mediapipe/framework/port:core_proto",
@@ -93,8 +85,7 @@ cc_library(
     name = "image_frame",
     srcs = ["image_frame.cc"],
     hdrs = ["image_frame.h"],
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         "//mediapipe/framework:port",
         "//mediapipe/framework/formats:image_format_cc_proto",
         "//mediapipe/framework/port:aligned_malloc_and_free",
@@ -113,8 +104,7 @@ cc_library(
     name = "image_frame_opencv",
     srcs = ["image_frame_opencv.cc"],
     hdrs = ["image_frame_opencv.h"],
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         ":image_frame",
         "//mediapipe/framework/formats:image_format_cc_proto",
         "//mediapipe/framework/port:opencv_core",
@@ -129,8 +119,7 @@ cc_library(
         "//conditions:default": [],
         "//mediapipe:android": ["MEDIAPIPE_ANDROID_OPENCV"],
     }),
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         "//mediapipe/framework/formats:location_data_cc_proto",
         "//mediapipe/framework/formats/annotation:locus_cc_proto",
         "@com_google_absl//absl/base:core_headers",
@@ -165,8 +154,7 @@ cc_library(
 cc_library(
     name = "video_stream_header",
     hdrs = ["video_stream_header.h"],
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         "//mediapipe/framework/formats:image_format_cc_proto",
     ],
 )
@@ -174,8 +162,7 @@ cc_library(
 cc_library(
     name = "yuv_image",
     hdrs = ["yuv_image.h"],
-    visibility = ["//visibility:public"],
-    deps = [
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = [
         "//mediapipe/framework/port:integral_types",
         "@libyuv",
     ],
@@ -198,8 +185,7 @@ cc_test(
 mediapipe_proto_library(
     name = "rect_proto",
     srcs = ["rect.proto"],
-    visibility = ["//visibility:public"],
-    deps = ["//mediapipe/framework/formats:location_data_proto"],
+    visibility = ["//mediapipe:__subpackages__", "//myMediapipe:__subpackages__"],    deps = ["//mediapipe/framework/formats:location_data_proto"],
 )
 
 mediapipe_proto_library(

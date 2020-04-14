@@ -118,6 +118,7 @@ cc_library(
     hdrs = ["header_util.h"],
     visibility = [
         "//mediapipe/framework:mediapipe_internal",
+        "//myMediapipe:__subpackages__",
     ],
     deps = [
         "//mediapipe/framework:calculator_framework",
@@ -187,6 +188,7 @@ cc_library(
     }),
     visibility = [
         "//mediapipe/framework:mediapipe_internal",
+        "//myMediapipe:__subpackages__",
     ],
     deps = [
         "//mediapipe/framework/port:ret_check",

@@ -153,7 +153,7 @@ mediapipe_cc_proto_library(
 mediapipe_cc_proto_library(
     name = "calculator_options_cc_proto",
     srcs = ["calculator_options.proto"],
-    visibility = ["//visibility:public"],
+    visibility = ["//visibility:public",],
     deps = [":calculator_options_proto"],
 )
 
