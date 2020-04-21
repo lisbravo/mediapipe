@@ -69,13 +69,13 @@ RUN mkdir /bazel && \
     /bazel/installer.sh  && \
     rm -f /bazel/installer.sh
 
-# OpenCV (3.2 default in 18.04)
+# OpenCV (3.4 default in 18.04)
 
 RUN apt-get update && apt-get install -y libopencv-dev
 
-# Opencv libs copied from coral device into opencv32_arm64_libs
+# Opencv libs copied from coral device into opencv34_arm64_libs
 
-RUN cp opencv32_arm64_libs/* /usr/lib/aarch64-linux-gnu/.
+RUN cp opencv34_arm64_libs/* /usr/lib/aarch64-linux-gnu/.
 
 # Edge tpu header and lib
 

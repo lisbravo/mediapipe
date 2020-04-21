@@ -8,7 +8,7 @@ echo '  sh mediapipe/examples/coral/setup.sh  '
 
 sleep 3
 
-mkdir -p opencv32_arm64_libs
+mkdir -p opencv34_arm64_libs
 
 # prepare docker aux script
 cp mediapipe/examples/coral/update_sources.sh update_sources.sh

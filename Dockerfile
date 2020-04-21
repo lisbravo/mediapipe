@@ -12,52 +12,74 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:latest
+#==== ! Prerequisite ! ====
+# $ sh mediapipe/examples/coral/setup.sh
+#====
+
+# for opencv 3.2 default
+FROM ubuntu:18.04
 
 MAINTAINER <mediapipe@google.com>
 
-WORKDIR /io
 WORKDIR /mediapipe
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-        ca-certificates \
-        curl \
-        git \
-        wget \
-        unzip \
-        python \
-        python-pip \
-        python3-pip \
-        libopencv-core-dev \
-        libopencv-highgui-dev \
-        libopencv-imgproc-dev \
-        libopencv-video-dev \
-        libopencv-calib3d-dev \
-        libopencv-features2d-dev \
-        software-properties-common && \
-    add-apt-repository -y ppa:openjdk-r/ppa && \
-    apt-get update && apt-get install -y openjdk-8-jdk && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Install MediaPipe & Coral deps
+
+COPY update_sources.sh /
+RUN /update_sources.sh
+
+RUN dpkg --add-architecture armhf
+RUN dpkg --add-architecture arm64
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  crossbuild-essential-arm64 \
+  libusb-1.0-0-dev:arm64 \
+  zlibc:arm64 \
+  pkg-config \
+  zip \
+  unzip \
+  curl \
+  wget \
+  git \
+  python \
+  python-pip \
+  python3-pip \
+  vim-common \
+  ca-certificates \
+  emacs \
+  software-properties-common && \
+  add-apt-repository -y ppa:openjdk-r/ppa && \
+  apt-get update && apt-get install -y openjdk-8-jdk
 
 RUN pip install --upgrade setuptools
 RUN pip install future
 RUN pip3 install six
 
+COPY . /mediapipe/
+
 # Install bazel
+# Please match the current MediaPipe Bazel requirements according to docs.
 ARG BAZEL_VERSION=2.0.0
 RUN mkdir /bazel && \
-    wget --no-check-certificate -O /bazel/installer.sh "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/b\
-azel-${BAZEL_VERSION}-installer-linux-x86_64.sh" && \
+    wget --no-check-certificate -O /bazel/installer.sh "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh" && \
     wget --no-check-certificate -O  /bazel/LICENSE.txt "https://raw.githubusercontent.com/bazelbuild/bazel/master/LICENSE" && \
     chmod +x /bazel/installer.sh && \
     /bazel/installer.sh  && \
     rm -f /bazel/installer.sh
 
-COPY . /mediapipe/
+# OpenCV (3.4 default in 18.04)
 
-# If we want the docker image to contain the pre-built object_detection_offline_demo binary, do the following
-# RUN bazel build -c opt --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/demo:object_detection_tensorflow_demo
+RUN apt-get update && apt-get install -y libopencv-dev
+
+# Opencv libs copied from coral device into opencv34_arm64_libs
+
+RUN cp opencv34_arm64_libs/* /usr/lib/aarch64-linux-gnu/.
+
+# Edge tpu header and lib
+
+RUN git clone https://github.com/google-coral/edgetpu.git /edgetpu
+RUN cp /edgetpu/libedgetpu/direct/aarch64/libedgetpu.so.1.0 /usr/lib/aarch64-linux-gnu/libedgetpu.so
+
+# See mediapipe/examples/coral/README.md to finish setup
