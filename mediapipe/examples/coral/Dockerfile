@@ -75,7 +75,12 @@ RUN apt-get update && apt-get install -y libopencv-dev
 
 # Opencv libs copied from coral device into opencv34_arm64_libs
 
-RUN cp opencv34_arm64_libs/* /usr/lib/aarch64-linux-gnu/.
+RUN cp opencv32_arm64_libs/* /usr/lib/aarch64-linux-gnu/.
+
+# Copy Mosquitopp
+
+RUN cp mosquitopp_arm64/libmosquittopp.so /usr/lib/aarch64-linux-gnu/.
+RUN cp mosquitopp_arm64/mosquitt*.h /usr/aarch64-linux-gnu/include/.
 
 # Edge tpu header and lib
 
