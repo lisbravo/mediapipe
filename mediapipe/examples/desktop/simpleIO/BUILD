@@ -25,3 +25,11 @@ cc_binary(
         "//mediapipe/graphs/simple_io:desktop_tflite_calculators",
     ],
 )
+
+cc_binary(
+    name = "simple_io_tflite_cam",
+    deps = [
+        "//mediapipe/examples/desktop:demo_run_graph_main",
+        "//mediapipe/graphs/simple_io:desktop_tflite_calculators",
+    ],
+)
